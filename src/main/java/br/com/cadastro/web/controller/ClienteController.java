@@ -15,17 +15,20 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
+
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cliente> incluir(@RequestBody Cliente cliente) {
         Cliente clienteIncluido = clienteService.salvar(cliente);
         URI location = URI.create("cliente/" + cliente.getId());
         return ResponseEntity.created(location).body(clienteIncluido);
     }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Cliente> recuperarPorId(@PathVariable Long id) {
         Cliente clienteRecuperado = clienteService.recuperarPorId(id);
         return ResponseEntity.ok().body(clienteRecuperado);
     }
+
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
         cliente.setId(id);
